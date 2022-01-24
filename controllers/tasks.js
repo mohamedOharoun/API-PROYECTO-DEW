@@ -45,7 +45,7 @@ const updateTask = async(req, res) => {
     res.status(StatusCodes.OK).json({task});
 }
 
-const create
+const deleteTask = async(req, res) => {}
 module.exports = {
     getAllTasks,
     createTask,
