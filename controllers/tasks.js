@@ -8,7 +8,7 @@ const getAllTasks = async(req, res) => {
 }
 
 const createTask = async (req, res) => {
-    //req.body.user = req.user.userId;
+    req.body.user = req.user.userId;
 
     const task = await Task.create(req.body);
 
@@ -18,7 +18,7 @@ const createTask = async (req, res) => {
 const updateTask = async(req, res) => {
     const {
         body: {name, content, completed, user},
-        //user: {userId},
+        user: {userId},
         params: {id: taskId}
     } = req;
 
@@ -29,7 +29,7 @@ const updateTask = async(req, res) => {
     const task = await Task.findByIdAndUpdate(
         {
             _id: taskId,
-            //user: userId
+            user: userId
         },
         req.body,
         {

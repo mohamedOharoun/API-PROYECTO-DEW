@@ -19,7 +19,7 @@ const TaskSchema = new mongoose.Schema({
         default: false
     },
     user: {
-        type: Number,//mongoose.Types.ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: 'User',
         required: [true, 'An user must be related to the task']
     } 
