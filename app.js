@@ -8,14 +8,14 @@ const tasksRouter = require('./routes/tasks');
 
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
-
+const authenticateUser = require('./middleware/authentication');
 const express = require('express');
 const app = express();
 
 app.use(express.json());
 
-app.use('/api/v1/tasks', tasksRouter);
-app.use('api/v1/login', authRouter);
+app.use('/api/v1/tasks', authenticateUser, tasksRouter);
+app.use('/api/v1/login', authRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

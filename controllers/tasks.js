@@ -2,7 +2,7 @@ const Task = require('../models/task.js');
 const {StatusCodes} = require('http-status-codes');
 
 const getAllTasks = async(req, res) => {
-    const tasks = await Task.find({user: req.query.user});
+    const tasks = await Task.find({user: req.user.userId}).sort('createdAt');
 
     res.status(StatusCodes.OK).json({count: tasks.length, tasks});
 }
@@ -47,14 +47,14 @@ const updateTask = async(req, res) => {
 
 const deleteTask = async(req, res) => {
     const {
-        //user: {userId},
+        user: {userId},
         params: {id: taskId}
     } = req;
 
     const task = await Task.findOneAndRemove(
         {
             _id: taskId,
-            //user: userId
+            user: userId
         }
     );
 
