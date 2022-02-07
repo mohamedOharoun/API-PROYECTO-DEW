@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
+//Modelado de los usuarios
 const UserSchema = new mongoose.Schema({
     name:{
         type: String,
@@ -22,11 +23,13 @@ const UserSchema = new mongoose.Schema({
     },
 });
 
+//Se encriptará la contraseña del usuario antes de guardarse en la base de datos
 UserSchema.pre('save', async function(){
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
 });
 
+//Creará un token JWT para cada usuario que se introduzca
 UserSchema.methods.createJWT = function(){
     return jwt.sign(
         {userId:this._id, 
@@ -36,6 +39,7 @@ UserSchema.methods.createJWT = function(){
     );
 }
 
+//Función para comprobar las credenciales del usuario en cada operación
 UserSchema.methods.comparePassword = async function(password){
     const isMatch = await bcrypt.compare(password, this.password);
     return isMatch;

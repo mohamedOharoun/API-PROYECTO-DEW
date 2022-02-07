@@ -1,5 +1,6 @@
-const { CustomAPIError } = require('../errors')
-const { StatusCodes } = require('http-status-codes')
+const { StatusCodes } = require('http-status-codes');
+
+//Se controlan los errores
 const errorHandlerMiddleware = (err, req, res, next) => {
   let customError = {
     statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,

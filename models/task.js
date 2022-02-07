@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+//Modelado de las notas
 const TaskSchema = new mongoose.Schema({
     name: {
         type: String,
